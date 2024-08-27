@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Sugar Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        p {
+            font-size: 14px;
+            color: #666;
+            margin-top: 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0070f3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0051a2;
+        }
+        #error {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        #result {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+        #result p:first-child {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        #result p:last-child {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0070f3;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Blood Sugar Converter</h1>
+        <p>Convert blood sugar from mg/dL to mmol/L</p>
+        <div>
+            <label for="mgdl">Blood Sugar (mg/dL)</label>
+            <input type="number" id="mgdl" placeholder="Enter value in mg/dL" aria-describedby="error">
+            <div id="error" aria-live="polite"></div>
+        </div>
+        <button onclick="convertToMmolL()">Convert</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function convertToMmolL() {
+            const mgdlInput = document.getElementById('mgdl');
+            const errorDiv = document.getElementById('error');
+            const resultDiv = document.getElementById('result');
+            const mgdlValue = parseFloat(mgdlInput.value);
+
+            if (isNaN(mgdlValue) || mgdlValue < 0) {
+                errorDiv.textContent = 'Please enter a valid positive number';
+                resultDiv.innerHTML = '';
+            } else {
+                const mmolL = (mgdlValue / 18).toFixed(2);
+                errorDiv.textContent = '';
+                resultDiv.innerHTML = `
+                    <p>Result:</p>
+                    <p>${mmolL} mmol/L</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
